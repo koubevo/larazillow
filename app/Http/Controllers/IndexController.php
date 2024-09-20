@@ -9,7 +9,7 @@ class IndexController extends Controller
     public function index()
     {
         return inertia('Index/Index', [
-            'message' => 'hell f la'
+            'message' => 'hello'
         ]);
     }
 
