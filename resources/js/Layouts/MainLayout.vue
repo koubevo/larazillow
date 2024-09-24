@@ -19,10 +19,3 @@
     )
     
 </script> 
-
-<style scoped>
-.success {
-    background-color: green;
-    color: white;
-}
-</style>
