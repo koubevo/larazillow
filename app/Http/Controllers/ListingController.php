@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
-class ListingController extends Controller
+class ListingController extends \Illuminate\Routing\Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
+
     /**
      * Display a listing of the resource.
      */
