@@ -8,12 +8,12 @@
 
             <div class="flex flex-nowrap items-center">
                 <select name="" id="" class="input-filter-l" v-model="filterForm.beds">
-                    <option value="null">Beds</option>
+                    <option value="">Beds</option>
                     <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
                     <option value="6">6+</option>
                 </select>
                 <select name="" id="" class="input-filter-r" v-model="filterForm.baths">
-                    <option value="null">Baths</option>
+                    <option value="">Baths</option>
                     <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
                     <option value="6">6+</option>
                 </select>
@@ -53,12 +53,12 @@ const filter = () => {
 }
 
 const clear = () => {
-    filterForm.priceFrom = null,
-    filterForm.priceTo = null,
-    filterForm.beds = null,
-    filterForm.baths = null,
-    filterForm.areaFrom = null,
-    filterForm.areaTo = null
+    filterForm.priceFrom = '',
+    filterForm.priceTo = '',
+    filterForm.beds = '',
+    filterForm.baths = '',
+    filterForm.areaFrom = '',
+    filterForm.areaTo = ''
     filter()
 }
 </script>

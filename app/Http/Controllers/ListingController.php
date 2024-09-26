@@ -29,35 +29,11 @@ class ListingController extends \Illuminate\Routing\Controller
             'baths'
         ]);
 
-        $query = Listing::orderByDesc('created_at');
-
-        if ($filters['priceFrom'] ?? false) {
-            $query->where('price', '>=', $filters['priceFrom']);
-        }
-
-        if ($filters['priceTo'] ?? false) {
-            $query->where('price', '<=', $filters['priceTo']);
-        }
-
-        if ($filters['areaFrom'] ?? false) {
-            $query->where('area', '>=', $filters['areaFrom']);
-        }
-
-        if ($filters['areaTo'] ?? false) {
-            $query->where('area', '<=', $filters['areaTo']);
-        }
-
-        if ($filters['beds'] ?? false) {
-            $query->where('beds', (int) $filters['beds'] < 6 ? '=' : '>=', $filters['beds']);
-        }
-
-        if ($filters['baths'] ?? false) {
-            $query->where('baths', (int) $filters['baths'] < 6 ? '=' : '>=', $filters['baths']);
-        }
+        $query = Listing::latest()->filter($filters)->paginate(9)->withQueryString();
 
         return inertia('Listing/Index', [
             'filters' => $filters,
-            'listings' => $query->paginate(9)->withQueryString()
+            'listings' => $query
         ]);
     }
 
