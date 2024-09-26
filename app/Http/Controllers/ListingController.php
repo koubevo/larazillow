@@ -112,12 +112,4 @@ class ListingController extends \Illuminate\Routing\Controller
         return redirect()->route('listing.index')->with('success', 'Listing was changed.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Listing $listing)
-    {
-        $listing->delete();
-        redirect()->back()->with('success', 'Listing was removed');
-    }
 }

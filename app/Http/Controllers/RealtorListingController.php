@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class RealtorListingController extends Controller
+
+class RealtorListingController extends \Illuminate\Routing\Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -58,8 +67,9 @@ class RealtorListingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Listing $listing)
     {
-        //
+        $listing->deleteOrFail();
+        redirect()->back()->with('success', 'Listing was removed');
     }
 }
