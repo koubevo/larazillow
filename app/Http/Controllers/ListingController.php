@@ -48,11 +48,11 @@ class ListingController extends \Illuminate\Routing\Controller
         }
 
         if ($filters['beds'] ?? false) {
-            $query->where('beds', $filters['beds']);
+            $query->where('beds', (int) $filters['beds'] < 6 ? '=' : '>=', $filters['beds']);
         }
 
         if ($filters['baths'] ?? false) {
-            $query->where('baths', $filters['baths']);
+            $query->where('baths', (int) $filters['baths'] < 6 ? '=' : '>=', $filters['baths']);
         }
 
         return inertia('Listing/Index', [
