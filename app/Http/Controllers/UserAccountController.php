@@ -23,7 +23,6 @@ class UserAccountController extends Controller
         ]);
 
         $user = User::create($validatedData);
-        $user->save();
         Auth::login($user);
 
         return redirect()->route('listing.index')->with('success', 'Account created');
