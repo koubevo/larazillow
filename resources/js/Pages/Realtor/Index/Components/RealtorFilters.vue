@@ -22,7 +22,7 @@ watch(
     route('realtor.listing.index'),
     filterForm,
     { preserveState: true, preserveScroll: true },
-  ), 1000)
+  ), 500)
 )
 
 </script>

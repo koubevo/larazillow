@@ -19,9 +19,10 @@ class RealtorListingController extends \Illuminate\Routing\Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return inertia('Realtor/Index', ['listings' => Auth::user()->listings]);
+        $filters = ['deleted' => $request->boolean('deleted')];
+        return inertia('Realtor/Index', ['listings' => Auth::user()->listings()->latest()->filter($filters)->get()]);
     }
 
     /**

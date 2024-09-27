@@ -52,6 +52,10 @@ class Listing extends Model
             $query->where('baths', (int) $filters['baths'] < 6 ? '=' : '>=', $filters['baths']);
         }
 
+        if ($filters['deleted'] ?? false) {
+            $query->withTrashed();
+        }
+
         return $query;
     }
 }
