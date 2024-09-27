@@ -1,22 +1,65 @@
 <template>
     <form>
-        <div class="my-4 flex flex-wrap gap-2">
+        <div class="my-4 flex flex-wrap gap-4">
             <div class="flex flex-nowrap items-center gap-2">
                 <input id="deleted" type="checkbox" class="h-4 w-4 rounded border-none text-indigo-600 focus:ring-indigo-500" v-model="filterForm.deleted">
                 <label for="deleted">Deleted</label>
+            </div>
+            <div>
+              <select class="input-filter-l w-24" v-model="filterForm.by">
+                <option value="created_at">Added</option>
+                <option value="price">Price</option>
+              </select>
+              <select class="input-filter-r w-24" v-model="filterForm.order">
+                <option v-for="option in sortOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
+              </select>
             </div>
         </div>
     </form>
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue'
+import { reactive, watch, computed } from 'vue'
 import { router } from '@inertiajs/vue3'
 import { debounce } from 'lodash'
-const filterForm = reactive({
-  deleted: false,
+
+const props = defineProps({
+    filters: Object
 })
+
+
+const sortLabels = {
+  created_at: [
+    {
+      label: 'Latest',
+      value: 'desc'
+    },
+    {
+      label: 'Oldest',
+      value: 'asc'
+    }
+  ],
+  price: [
+  {
+      label: 'Most expensive',
+      value: 'desc'
+    },
+    {
+      label: 'Cheapest',
+      value: 'asc'
+    }
+  ]
+}
  
+const sortOptions = computed(() => sortLabels[filterForm.by])
+
+
+const filterForm = reactive({
+  deleted: props.filters.deleted ?? false,
+  by: props.filters.by ?? 'created_at',
+  order: props.filters.order ?? 'desc'
+})
+
 watch(
   filterForm, debounce(() => router.get(
     route('realtor.listing.index'),
@@ -24,5 +67,8 @@ watch(
     { preserveState: true, preserveScroll: true },
   ), 500)
 )
+
+
+
 
 </script>

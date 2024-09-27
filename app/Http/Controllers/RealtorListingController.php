@@ -25,7 +25,10 @@ class RealtorListingController extends \Illuminate\Routing\Controller
             'deleted' => $request->boolean('deleted'),
             ...$request->only(['by', 'order'])
         ];
-        return inertia('Realtor/Index', ['listings' => Auth::user()->listings()->filter($filters)->get()]);
+        return inertia('Realtor/Index', [
+            'listings' => Auth::user()->listings()->filter($filters)->get(),
+            'filters' => $filters
+        ]);
     }
 
     /**
