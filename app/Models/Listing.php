@@ -16,6 +16,8 @@ class Listing extends Model
 
     protected $fillable = ['beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'];
 
+    protected $sortable = ['price', 'created_at'];
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'by_user_id');
@@ -54,6 +56,11 @@ class Listing extends Model
 
         if ($filters['deleted'] ?? false) {
             $query->withTrashed();
+        }
+
+        if ($filters['by'] ?? false) {
+            !in_array($filters['by'], $this->sortable) ? $query :
+                $query->orderBy($filters['by'], $filters['order'] ?? 'desc');
         }
 
         return $query;

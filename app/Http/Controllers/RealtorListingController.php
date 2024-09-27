@@ -21,8 +21,11 @@ class RealtorListingController extends \Illuminate\Routing\Controller
      */
     public function index(Request $request)
     {
-        $filters = ['deleted' => $request->boolean('deleted')];
-        return inertia('Realtor/Index', ['listings' => Auth::user()->listings()->latest()->filter($filters)->get()]);
+        $filters = [
+            'deleted' => $request->boolean('deleted'),
+            ...$request->only(['by', 'order'])
+        ];
+        return inertia('Realtor/Index', ['listings' => Auth::user()->listings()->filter($filters)->get()]);
     }
 
     /**
