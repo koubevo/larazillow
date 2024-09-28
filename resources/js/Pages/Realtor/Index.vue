@@ -18,7 +18,7 @@
                 <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.edit', { listing: listing.id })">Edit</Link>
                 <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.destroy', {listing: listing.id})" as="button" method="delete" v-if="!listing.deleted_at">Delete</Link>
                 <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.restore', {listing: listing.id})" as="button" method="put" v-if="listing.deleted_at">Restore</Link>
-                <Link :href="route('realtor.listing.image.create', { listing: listing.id })" class="btn-outline text-xs font-medium">Images</Link>
+                <Link :href="route('realtor.listing.image.create', { listing: listing.id })" class="btn-outline text-xs font-medium">Images ({{ listing.images_count }})</Link>
             </div>
         </div>
     </Box>

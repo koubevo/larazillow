@@ -26,7 +26,7 @@ class RealtorListingController extends \Illuminate\Routing\Controller
             ...$request->only(['by', 'order'])
         ];
         return inertia('Realtor/Index', [
-            'listings' => Auth::user()->listings()->filter($filters)->paginate(5)->withQueryString(),
+            'listings' => Auth::user()->listings()->filter($filters)->withCount('images')->paginate(5)->withQueryString(),
             'filters' => $filters
         ]);
     }
