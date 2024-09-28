@@ -9,7 +9,7 @@
             <div :class="{'opacity-25': listing.deleted_at}">
                 <div class="xl:flex items-center gap-2">
                     <Price :price="listing.price" class="text-2xl font-medium"></Price>
-                    <ListingSpace :listing="listing" class="text-sm"></ListingSpace>
+                    <ListingSpace :listing="listing" class="text-sm"></ListingSpace> 
                 </div>
                 <ListingAddress :listing="listing"></ListingAddress>
             </div>
@@ -18,6 +18,7 @@
                 <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.edit', { listing: listing.id })">Edit</Link>
                 <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.destroy', {listing: listing.id})" as="button" method="delete" v-if="!listing.deleted_at">Delete</Link>
                 <Link class="btn-outline text-xs font-medium" :href="route('realtor.listing.restore', {listing: listing.id})" as="button" method="put" v-if="listing.deleted_at">Restore</Link>
+                <Link :href="route('realtor.listing.image.create', { listing: listing.id })" class="btn-outline text-xs font-medium">Images</Link>
             </div>
         </div>
     </Box>
