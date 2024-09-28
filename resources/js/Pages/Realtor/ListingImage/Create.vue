@@ -9,11 +9,21 @@
             </section>
         </form>
     </Box>
+
+    <Box class="mt-4" v-if="listing.images.length">
+        <template #header>Current Listing Images</template>
+        <section class="mt-4 grid grid-cols-3 gap-4">
+            <div v-for="image in listing.images" :key="image.id" class="flex flex-col justify-between">
+                <img :src="image.src" alt="rounded-md">
+                <Link class="btn-outline text-sm mt-2" :href="route('realtor.listing.image.destroy', { listing: props.listing.id, image: image.id })" method="delete" as="button">Delete</Link>
+            </div>
+        </section>
+    </Box>
 </template>
 
 <script setup>
 import Box from '@/Components/UI/Box.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { computed } from 'vue'
 import { router } from '@inertiajs/vue3';
 import NProgress from 'nprogress'
