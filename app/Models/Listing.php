@@ -34,6 +34,11 @@ class Listing extends Model
         return $query->orderByDesc('created_at');
     }
 
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'listing_id');
+    }
+
     public function scopeFilter(Builder $query, array $filters): Builder
     {
         if ($filters['priceFrom'] ?? false) {
