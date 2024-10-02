@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends \Illuminate\Routing\Controller
 {
@@ -48,10 +49,14 @@ class ListingController extends \Illuminate\Routing\Controller
     public function show(Listing $listing)
     {
         $listing->load(['images']);
+
+        $offer = !Auth::user() ? null : $listing->offers()->byMe()->first();
+
         return inertia(
             'Listing/Show',
             [
-                'listing' => $listing
+                'listing' => $listing,
+                'offerMade' => $offer
             ]
         );
     }
