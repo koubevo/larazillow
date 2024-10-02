@@ -26,7 +26,7 @@ class RealtorListingController extends \Illuminate\Routing\Controller
             ...$request->only(['by', 'order'])
         ];
         return inertia('Realtor/Index', [
-            'listings' => Auth::user()->listings()->filter($filters)->withCount('images')->paginate(5)->withQueryString(),
+            'listings' => Auth::user()->listings()->filter($filters)->withCount('images')->withCount('offers')->paginate(5)->withQueryString(),
             'filters' => $filters
         ]);
     }
@@ -62,9 +62,9 @@ class RealtorListingController extends \Illuminate\Routing\Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Listing $listing)
     {
-        //
+        return inertia('Realtor/Show', ['listing' => $listing->load('offers')]);
     }
 
     /**
