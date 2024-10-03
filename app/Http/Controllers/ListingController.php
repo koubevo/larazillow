@@ -30,7 +30,7 @@ class ListingController extends \Illuminate\Routing\Controller
             'baths'
         ]);
 
-        $query = Listing::latest()->filter($filters)->paginate(9)->withQueryString();
+        $query = Listing::latest()->filter($filters)->withoutSold()->paginate(9)->withQueryString();
 
         return inertia('Listing/Index', [
             'filters' => $filters,

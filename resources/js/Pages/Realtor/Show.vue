@@ -7,13 +7,13 @@
     </Link>
   </div>
   <section class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
-    <Box v-if="!hasOffers" class="flex md:col-span-7 items-center">
+    <Box v-if="!hasOffers" class="flex flex-col md:col-span-7 gap-4">
       <div class="w-full text-center font-medium text-gray-500">
         No offers
       </div>
     </Box>
     <div v-else class="md:col-span-7 items-center">
-        <Offer v-for="offer in listing.offers" :key="offer.id" class="mb-4" :offer="offer" :listing-price="listing.price"></Offer>
+        <Offer v-for="offer in listing.offers" :key="offer.id" class="mb-4" :offer="offer" :is-sold="listing.sold_at != null" :listing-price="listing.price"></Offer>
     </div>
     <Box class="md:col-span-5">
       <template #header>Basic Info</template>
